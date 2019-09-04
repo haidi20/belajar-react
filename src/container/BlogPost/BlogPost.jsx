@@ -26,6 +26,14 @@ class BlogPost extends Component {
         axios.post('http://localhost:3004/posts', this.state.formBlogPost).then((res) => {
             console.log(res);
             this.getPostAPI();
+            this.setState({
+                formBlogPost: {
+                    id: 1,
+                    title: '',
+                    body: '',
+                    userId: 1,
+                },
+            })
         }, (err) => {
             console.log('error: ', err);
         });
@@ -35,6 +43,15 @@ class BlogPost extends Component {
         axios.put(`http://localhost:3004/posts/${this.state.formBlogPost.id}`, this.state.formBlogPost).then(res => {
             console.log(res);
             this.getPostAPI();
+            this.setState({
+                isUpdate: false,
+                formBlogPost: {
+                    id: 1,
+                    title: '',
+                    body: '',
+                    userId: 1,
+                },
+            })
         });
     }
     handleRemove = (data) => {
