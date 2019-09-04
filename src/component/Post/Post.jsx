@@ -7,8 +7,10 @@ const post = (props) => {
                 <img src="https://placeimg.com/200/150/tech" alt="dummy" />
             </div>
             <div className="content">
-                <p className="title">{props.title}</p>
-                <div className="desc">{props.desc}</div>
+                <p className="title">{props.data.title}</p>
+                <div className="desc">{props.data.body}</div>
+                <button className="update" onClick={() => props.update(props.data)}>update</button>
+                <button className="remove" onClick={() => props.remove(props.data.id)}>remove</button>
             </div>
         </div>
     )
