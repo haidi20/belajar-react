@@ -89,6 +89,9 @@ class BlogPost extends Component {
             this.postDataToAPI();
         }
     }
+    handleDetail = (id) => {
+        this.props.history.push(`/detail-post/${id}`);
+    }
     componentDidMount(){
         this.getPostAPI();
     }
@@ -108,7 +111,13 @@ class BlogPost extends Component {
 
                 {
                     this.state.post.map(post => {
-                        return <Post key={post.id} data={post} remove={this.handleRemove} update={this.handleUpdate}/>
+                        return <Post 
+                                    data={post} 
+                                    key={post.id} 
+                                    goDetail={this.handleDetail}
+                                    remove={this.handleRemove} 
+                                    update={this.handleUpdate}
+                                />
                     })
                 }
                 

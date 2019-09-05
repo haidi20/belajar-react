@@ -115,3 +115,7 @@ button.btn-submit:hover{
     background: #2196F3;
     color:white;
 }
+
+.content p.title:hover{
+    cursor:pointer;
+}
