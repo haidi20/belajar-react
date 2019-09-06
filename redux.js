@@ -1,6 +1,7 @@
 const redux = require('redux');
 const createStore = redux.createStore;
 
+// inisial state
 const initialState = {
     value: 0,
     age: 22
