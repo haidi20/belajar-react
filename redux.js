@@ -15,6 +15,12 @@ const rootReducer = (state = initialState, action) => {
             age: state.age + 1
         }
     }
+    if(action.type == 'CHANGE_VALUE'){
+       return{
+           ...state,
+           value: state.value + action.newValue
+       } 
+    }
     return state;
 }
 
@@ -23,7 +29,8 @@ const store = createStore(rootReducer);
 console.log(store.getState());
 
 // dispatching action
-store.dispatch({type: 'ADD_AGE', })
+store.dispatch({type: 'ADD_AGE', });
+store.dispatch({type: 'CHANGE_VALUE', newValue: 12});
 console.log(store.getState());
 
 
