@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import './BlogPost.css';
 import Post from '../../../component/Post/Post';
 import axios from 'axios';
+import API from '../../../services';
 
 class BlogPost extends Component {
     state = {
@@ -12,13 +13,18 @@ class BlogPost extends Component {
             body: '',
             userId: 1,
         },
-        isUpdate: false
+        isUpdate: false,
+        comments: [],
     }
     getPostAPI = () => {
-        axios.get('http://localhost:3004/posts?_sort=id&_order=desc')
-        .then((res) => {
+        API.getNewsBlog().then(result => {
             this.setState({
-                post: res.data
+                post: result
+            })
+        });
+        API.getComments().then(result => {
+            this.setState({
+                comments: result
             })
         })
     }
@@ -108,7 +114,11 @@ class BlogPost extends Component {
                     <textarea name="body" value={this.state.formBlogPost.body} id="body" cols="30" rows="10" placeholder="add content" onChange={this.handleFormChange}></textarea>
                     <button className="btn-submit" onClick={this.handleSubmit}>Simpan</button>
                 </div>
-
+                {
+                    this.state.comments.map(comment => {
+                        return <p>{comment.name} - {comment.email}</p>
+                    })
+                }
                 {
                     this.state.post.map(post => {
                         return <Post 
