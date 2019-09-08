@@ -29,25 +29,22 @@ class BlogPost extends Component {
         })
     }
     postDataToAPI = () => {
-        axios.post('http://localhost:3004/posts', this.state.formBlogPost).then((res) => {
-            console.log(res);
+        API.postNewsBlog(this.state.formBlogPost).then(result => {
             this.getPostAPI();
             this.setState({
-                formBlogPost: {
+                formBlogPost : {
                     id: 1,
                     title: '',
                     body: '',
                     userId: 1,
-                },
+                }
             })
-        }, (err) => {
-            console.log('error: ', err);
-        });
+        })
     }
     putDataToAPI = () => {
-        // console.log(this.state.formBlogPost);
-        axios.put(`http://localhost:3004/posts/${this.state.formBlogPost.id}`, this.state.formBlogPost).then(res => {
-            console.log(res);
+        const id    = this.state.formBlogPost.id;
+        const data  = this.state.formBlogPost;
+        API.updateNewsBlog(data, id).then(res => {
             this.getPostAPI();
             this.setState({
                 isUpdate: false,
@@ -62,10 +59,9 @@ class BlogPost extends Component {
     }
     handleRemove = (data) => {
         // console.log(data);
-        axios.delete(`http://localhost:3004/posts/${data}`).then((res) => {
-            // console.log(res);
+        API.deleteNewsBlog(data).then(res => {
             this.getPostAPI();
-        });
+        })
     }
     handleUpdate = (data) => {
         // console.log(data);
@@ -114,11 +110,11 @@ class BlogPost extends Component {
                     <textarea name="body" value={this.state.formBlogPost.body} id="body" cols="30" rows="10" placeholder="add content" onChange={this.handleFormChange}></textarea>
                     <button className="btn-submit" onClick={this.handleSubmit}>Simpan</button>
                 </div>
-                {
+                {/* {
                     this.state.comments.map(comment => {
                         return <p>{comment.name} - {comment.email}</p>
                     })
-                }
+                } */}
                 {
                     this.state.post.map(post => {
                         return <Post 

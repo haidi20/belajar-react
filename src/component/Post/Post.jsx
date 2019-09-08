@@ -8,7 +8,7 @@ const post = (props) => {
     return (
         <div className="post">
             <div className="img-tumb">
-                <img src="https://placeimg.com/200/150/tech" alt="dummy" />
+                <img src="https://placeimg.com/200/150/nature" alt="dummy" />
             </div>
             <div className="content">
                 <p className="title" style={styleTitle} onClick={ () => props.goDetail(props.data.id)}>{props.data.title}</p>
