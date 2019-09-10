@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Button from './components/Buttons';
 // import logo from '../../../assets/img/logo/logo.svg';
-import './App.css';
+import './css/styles.css';
 
 class App extends Component {
   constructor(props){
@@ -15,11 +15,12 @@ class App extends Component {
 
   reset = () => {
     this.setState({
-      result: '0'
+      current: '0'
     })
   }
 
   addToCurrent = (symbol) => {
+    console.log('symbol : '+ symbol)
     this.setState({
       current: this.state.current + symbol
     })
@@ -48,7 +49,11 @@ class App extends Component {
     return (
       <div className="App">
         <input className="result" type="text" value={this.state.current}></input>
-
+        {
+          buttons.map((btn, i) => {
+            return <Button key={i} symbol={btn.symbol} cols={btn.cols} action={(symbol) => btn.action(symbol)} />
+          })
+        }
 
       </div>
     );
