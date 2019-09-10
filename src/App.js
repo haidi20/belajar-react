@@ -1,11 +1,24 @@
-import React from 'react';
+import React, {Component} from 'react';
 // import logo from '../../../assets/img/logo/logo.svg';
 import './App.css';
 
-function App() {
-  return (
-   <div><h1>Hello World</h1></div>
-  );
+class App extends Component {
+  constructor(props){
+    super(props)
+
+    this.state({
+      current: 0,
+      previous: []
+    })
+  }
+
+  render(){
+    return (
+      <div className="App">
+        <input className="result" type="text" value={this.state.current}></input>
+      </div>
+    );
+  }
 }
 
 export default App;
