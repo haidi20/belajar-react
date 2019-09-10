@@ -33,3 +33,11 @@ button.calc-button{
     font-size: 32px;
     color: #555;
 }
+
+.float-last{
+    position: absolute;
+    right: 50px;
+    z-index:99;
+    top: 10px;
+    color: #aaa;
+}
