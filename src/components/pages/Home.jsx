@@ -3,7 +3,11 @@ import Header from '../common/Header';
 import image from '../assets/img/header-bg.jpg';
 
 // components
+import Team from '../common/Team';
+import TimeLines from '../common/TimeLines';
 import Services from '../common/Services';
+import Portfolio from '../common/Portfolio';
+
 
 class Home extends Component {
     render(){
@@ -19,6 +23,9 @@ class Home extends Component {
                 />
 
                 <Services/>
+                <Portfolio/>
+                <Team/>
+                <TimeLines />
             </div>
         )
     }
