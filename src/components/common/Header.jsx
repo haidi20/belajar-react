@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import image from '../assets/img/header-bg.jpg';
 
 class Header extends Component {
     render(){
         return(
-            <header className="masthead" style={{backgroundImage: `url(${image})`}}>
+            <header className="masthead" style={{backgroundImage: `url(${this.props.image})`}}>
                 <div className="container">
                 <div className="intro-text">
                     <div className="intro-lead-in">{this.props.title}</div>
