@@ -14,6 +14,7 @@ class App extends Component {
           {
             lists.map((list) =>
               <TrelloList 
+                listID={list.id}
                 title={list.title}  
                 cards={list.cards}
                 key={list.id} />
