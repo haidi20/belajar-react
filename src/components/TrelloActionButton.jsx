@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import Textarea from 'react-textarea-autosize'
 import {connect} from 'react-redux';
+import React, {Component} from 'react';
 import {addList, addCard} from '../actions';
+import Textarea from 'react-textarea-autosize';
 
 //ui
 import Card from '@material-ui/core/Card';
@@ -11,8 +11,8 @@ import Button from '@material-ui/core/Button';
 class TrelloActionButton extends Component{
 
     state = {
+        text: "",
         formOpen: false,
-        text: ""
     }
 
     openForm = () => {
@@ -34,13 +34,14 @@ class TrelloActionButton extends Component{
     }
 
     handleAddList = () => {
-        const { dispatch } = this.props;
-        const { text } = this.state;
+        const { text }      = this.state;
+        const { dispatch }  = this.props;
 
         if(text){
             this.setState({
                 text: ''
             })
+
             dispatch(addList(text))
         }
 
@@ -48,13 +49,14 @@ class TrelloActionButton extends Component{
     }
 
     handleAddCard = () => {
+        const { text }             = this.state
         const { dispatch, listID } = this.props
-        const { text } = this.state
 
         if(text){
             this.setState({
                 text: ''
             })
+            
             dispatch(addCard(listID, text))
         }
     }
