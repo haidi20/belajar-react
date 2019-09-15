@@ -19,7 +19,7 @@ class App extends Component {
                 key={list.id} />
             )
           }
-          <TrelloActionButton list/>
+          <TrelloActionButton list />
         </div>
       </div>
     );
