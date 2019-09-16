@@ -7,7 +7,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 class App extends Component {
 
   onDragEnd = () => {
-
+    
   }
 
   render(){
