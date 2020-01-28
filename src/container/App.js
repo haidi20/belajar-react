@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 // import Radium, {StyleRoot} from 'radium';
 // import Styled from 'styled-components';
-import Person from './Person/Person';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
+// import ErrorBoundary from '../components/Persons/ErrorBoundary/ErrorBoundary';
 
 // const StyledButton = Styled.button`
 //   background-color: ${props => props.alt ? 'red' : 'green'};
@@ -19,6 +20,12 @@ import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 // `;
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+
+    console.log('app.js constructor');
+  }
+
   state = {
     persons: [
       { id: 'sdf234',name: 'Max', age: 28 },
@@ -27,6 +34,29 @@ class App extends Component {
     ],
     otherState: 'some other value',
     showPersons: false
+  }
+
+  // static getDerivedStateFromProps(props, state){
+  //   console.log('[Ap.js] getDerivedStateFromProps', props);
+  //   return state; 
+  // }
+
+  componentWillMount(){
+    console.log('[App.js] componentWillMount');
+  }
+
+  componentDidMount(){
+    console.log('[App.js] componentDidMount');
+  }
+
+  // shouldComponentUpdate(nextProps, nextState){
+  //   console.log('[App.js] shouldComponentUpdate');
+
+  //   return false;
+  // }
+
+  componentDidUpdate(){
+    console.log('[App.js] componentDidUpdate');
   }
 
   switchNameHandler = ( newName ) => {
@@ -88,53 +118,27 @@ class App extends Component {
       }
     };
 
+    console.log('[App.js] render');
+
     let persons = null;
 
     if ( this.state.showPersons ) {
       persons = (
-        <div>
-          {this.state.persons.map((person, index) => {
-            return <ErrorBoundary key={person.id}>
-              <Person 
-                
-                click={() => this.deletePersonHandler(person.id)}
-                name={person.name} 
-                age={person.age} 
-                changed={(event) => this.nameChangedHandler(event, person.id)}
-              />
-            </ErrorBoundary>
-          })}
-        </div>
+        <Persons 
+          persons={this.state.persons}
+          clicked={this.deletePersonHandler}
+          changed={this.nameChangedHandler}
+        />
       );
-
-      // style.backgroundColor = 'red';
-      // style[':hover'] = {
-      //   backgroundColor: 'lightred',
-      //   color: 'black',
-      // }
-
-    }
-
-    const classes = [];
-    if(this.state.persons.length <= 2){
-      classes.push('red');
-    }
-    if(this.state.persons.length <= 1){
-      classes.push('bold');
     }
 
     return (
       // <StyleRoot>
         <div className="App">
-          <h1>Hi, I'm a React App</h1>
-          <p className={classes.join(' ')}>This is really working!</p>
-          <button
-            className="button"
-            // alt={this.state.showPersons}
-            onClick={this.togglePersonsHandler}
-          >
-            Toggle Persons
-          </button>
+          <Cockpit 
+            persons={this.state.persons}
+            click={this.togglePersonsHandler}
+          />
           {persons}
         </div>
       // </StyleRoot>
