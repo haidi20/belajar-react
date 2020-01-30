@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './App.css';
 // import Radium, {StyleRoot} from 'radium';
 // import Styled from 'styled-components';
-import Persons from '../components/Persons/Persons';
+import Persons from '../components/Persons/PersonsOld';
 import Cockpit from '../components/Cockpit/Cockpit';
+import withClass from '../hoc/withClass';
+import Aux from '../hoc/Auxx';
+import AuthContext from '../context/auth-context';
 // import ErrorBoundary from '../components/Persons/ErrorBoundary/ErrorBoundary';
 
 // const StyledButton = Styled.button`
@@ -33,7 +37,10 @@ class App extends Component {
       { id: 'gjs529',name: 'Stephanie', age: 26 }
     ],
     otherState: 'some other value',
-    showPersons: false
+    showPersons: false,
+    showCockpit: true,
+    changeCounter: 0,
+    authenticated: false,
   }
 
   // static getDerivedStateFromProps(props, state){
@@ -90,7 +97,12 @@ class App extends Component {
     ]
     persons[personIndex] = person
 
-    this.setState({persons: persons})
+    this.setState((prevState, props) => {
+      return {
+        persons: persons,
+        changeCounter: prevState.changeCounter + 1,
+      }
+    })
   }
 
   togglePersonsHandler = () => {
@@ -102,6 +114,14 @@ class App extends Component {
     const persons = [...this.state.persons];
     persons.splice(personIndex, 1);
     this.setState({persons: persons})
+  }
+
+  loginHandler = () => {
+    this.setState({
+      authenticated: true,
+    })
+
+    // console.log(this.state.authenticated)
   }
 
   render () {
@@ -118,7 +138,7 @@ class App extends Component {
       }
     };
 
-    console.log('[App.js] render');
+    // console.log('[App.js] render');
 
     let persons = null;
 
@@ -128,22 +148,42 @@ class App extends Component {
           persons={this.state.persons}
           clicked={this.deletePersonHandler}
           changed={this.nameChangedHandler}
+          isAuthenticated={this.state.authenticated}
         />
       );
     }
 
     return (
       // <StyleRoot>
-        <div className="App">
-          <Cockpit 
-            persons={this.state.persons}
-            click={this.togglePersonsHandler}
-          />
-          {persons}
-        </div>
+        <Aux>
+          <button 
+            onClick={() => 
+              this.setState({showCockpit: !this.state.showCockpit})
+            }
+          >
+            hidden
+          </button>
+          <AuthContext.Provider 
+            value={{
+              authenticated: this.state.authenticated,
+              login: this.loginHandler
+            }}
+          >
+            {this.state.showCockpit ? (
+              <Cockpit 
+                // persons={this.state.persons}
+                title={this.props.appTitle}
+                personsLength={this.state.persons.length}
+                click={this.togglePersonsHandler}
+                login={this.loginHandler}
+              />
+            ) : null}
+            {persons}
+          </AuthContext.Provider>
+        </Aux>
       // </StyleRoot>
     );
   }
 }
 
-export default App;
+export default withClass(App, 'App');
