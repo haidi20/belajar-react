@@ -2,11 +2,15 @@ import React from 'react';
 import logo from './logo.svg';
 // import './App.css';
 import AppStyles from './App.css';
+import Layout from './components/Layout/Layout';
+import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 
 function App() {
   return (
-    <div className={AppStyles.App}>
-      <h1 >hello world</h1>
+    <div>
+      <Layout>
+        <BurgerBuilder />
+      </Layout>
     </div>
   );
 }
